@@ -129,16 +129,16 @@ No bootcamp. No paid courses. Just curiosity, grit.
 
 ## 📷 Screenshots
 
-![Dashboard](screenshots/Dashboard_Home.png)
+![Dashboard](predictive-maintenance-project/screenshots/Dashboard_Home.png)
 Real Time Sensor Trends
 
 ---
 
-![Dashboard](screenshots/Dashboard_2.png)
+![Dashboard](predictive-maintenance-project/screenshots/Dashboard_2.png)
 Failure Probability
 
 ---
-![Docker](screenshots/Docker_image.png)
+![Docker](predictive-maintenance-project/screenshots/Docker_image.png)
 App running in Docker - portable, consistent, production-ready
 
 ---
