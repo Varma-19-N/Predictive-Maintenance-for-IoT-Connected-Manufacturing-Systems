@@ -1,4 +1,5 @@
 # app.py - UPGRADED WITH REAL MODEL
+import os
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -6,6 +7,7 @@ import plotly.graph_objects as go
 import joblib
 import numpy as np
 from datetime import datetime
+import joblib
 
 # Set page config
 st.set_page_config(page_title="Predictive Maintenance Dashboard", layout="wide")
@@ -18,9 +20,6 @@ st.markdown("Real-time monitoring of IoT-connected machines for early failure de
 # ================
 @st.cache_resource
 def load_model():
-    import os
-    import joblib
-
     # Check if model and scaler exist
     if not (os.path.exists('models/xgb_failure_model.pkl') and
             os.path.exists('models/scaler.pkl') and
