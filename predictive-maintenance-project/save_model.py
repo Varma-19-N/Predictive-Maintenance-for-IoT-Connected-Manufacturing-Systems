@@ -1,4 +1,5 @@
 # save_model.py
+import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from xgboost import XGBClassifier
@@ -36,6 +37,8 @@ def main():
     xgb_balanced = XGBClassifier(n_estimators=100, random_state=42, eval_metric='logloss')
     xgb_balanced.fit(X_train_scaled, y_train_balanced)
     
+    # Ensure models folder exists
+    os.makedirs('models', exist_ok=True)
     # Save model and scaler
     joblib.dump(xgb_balanced, 'models/xgb_failure_model.pkl')
     joblib.dump(scaler, 'models/scaler.pkl')
