@@ -6,21 +6,42 @@ import plotly.graph_objects as go
 import joblib
 import numpy as np
 from datetime import datetime
-
 # Set page config
 st.set_page_config(page_title="Predictive Maintenance Dashboard", layout="wide")
 st.title("🏭 Predictive Maintenance Dashboard")
 st.markdown("Real-time monitoring of IoT-connected machines for early failure detection.")
 
-# Load model, scaler, and features
+# ================
+# 🚨 ROBUST MODEL LOADER — Auto-generates data & trains model if missing
+# ================
 @st.cache_resource
 def load_model():
+    import os
+    import joblib
+
+    # Check if model and scaler exist
+    if not (os.path.exists('models/xgb_failure_model.pkl') and
+            os.path.exists('models/scaler.pkl') and
+            os.path.exists('models/feature_names.pkl')):
+
+        st.warning("⚠️ Model not found. Training now... (this may take 30-60 seconds)")
+        
+        # Auto-generate dataset if missing
+        if not os.path.exists('data/iot_sensor_data_8500.csv'):
+            st.info("🔄 Generating dataset...")
+            import generate_iot_data
+            generate_iot_data.main()  # We'll add a main() function below
+
+        # Auto-train model
+        st.info("🧠 Training XGBoost model with SMOTE...")
+        import save_model
+        save_model.main()  # We'll add a main() function below
+
+    # Now load the model (should exist)
     model = joblib.load('models/xgb_failure_model.pkl')
     scaler = joblib.load('models/scaler.pkl')
     features = joblib.load('models/feature_names.pkl')
     return model, scaler, features
-
-model, scaler, features = load_model()
 
 # Load data
 df = pd.read_csv('data/iot_sensor_data_8500.csv')
